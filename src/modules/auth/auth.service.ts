@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -24,7 +28,7 @@ export class AuthService {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
-          sub: data.id,
+          id: data.id,
           email: data.email,
         },
         {
@@ -36,7 +40,7 @@ export class AuthService {
       ),
       this.jwtService.signAsync(
         {
-          sub: data.id,
+          id: data.id,
           email: data.email,
         },
         {
@@ -75,5 +79,27 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async refreshToken(refreshToken: string, user: AuthTokenData) {
+    try {
+      const payload = await this.jwtService.verifyAsync(refreshToken, {
+        secret: this.configService.get('REFRESH_TOKEN_SECRET'),
+        ignoreExpiration: true,
+      });
+
+      if (payload.id !== user.id) {
+        throw new BadRequestException('Refresh token is expired');
+      }
+
+      const { accessToken } = await this.signIn({
+        id: payload.sub,
+        email: payload.email,
+      });
+
+      return { accessToken };
+    } catch {
+      throw new BadRequestException('Refresh token is expired');
+    }
   }
 }
