@@ -13,6 +13,9 @@ import { AppController } from './app.controller';
 import { DatabaseConfig } from '../config/database';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { BlogPostCategoriesModule } from './modules/blog-post-categories/blog-post-categories.module';
+import { BlogPostsModule } from './modules/blog-posts/blog-posts.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
   imports: [
@@ -21,6 +24,9 @@ import { UsersModule } from './modules/users/users.module';
     JwtModule.register({ global: true }),
     AuthModule,
     UsersModule,
+    BlogPostCategoriesModule,
+    BlogPostsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [],

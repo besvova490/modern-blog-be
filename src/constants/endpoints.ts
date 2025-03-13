@@ -11,4 +11,10 @@ export const ENDPOINTS = {
     FORGOT_PASSWORD: 'forgot-password',
     RESET_PASSWORD: 'reset-password',
   },
+  BLOG_POSTS: {
+    ROOT: 'blog-posts',
+    SINGLE_POST: ':slug',
+    CATEGORIES: 'categories',
+    SINGLE_CATEGORY: ':slug',
+  },
 };

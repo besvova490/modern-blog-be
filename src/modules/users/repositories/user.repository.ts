@@ -18,7 +18,7 @@ export class UserRepository {
     return this.userRepository.findOne(options);
   }
 
-  async findAll(options: FindManyOptions<User>): Promise<User[]> {
+  async findMany(options: FindManyOptions<User>): Promise<User[]> {
     return this.userRepository.find(options);
   }
 

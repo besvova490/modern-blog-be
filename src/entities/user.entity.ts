@@ -1,7 +1,9 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 
 // entities
 import { AppBaseEntity } from './app-base.entity';
+import { BlogPost } from './blog-post.entity';
+import { Comment } from './comment.entity';
 
 @Entity({ name: 'users' })
 export class User extends AppBaseEntity {
@@ -28,4 +30,10 @@ export class User extends AppBaseEntity {
 
   @Column({ type: 'varchar', nullable: true })
   website: string;
+
+  @OneToMany(() => BlogPost, (blogPost) => blogPost.author)
+  blogPosts: BlogPost[];
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[];
 }
