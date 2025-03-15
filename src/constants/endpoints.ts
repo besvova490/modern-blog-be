@@ -16,5 +16,10 @@ export const ENDPOINTS = {
     SINGLE_POST: ':slug',
     CATEGORIES: 'categories',
     SINGLE_CATEGORY: ':slug',
+    COMMENTS: ':slug/comments',
+  },
+  COMMENTS: {
+    ROOT: 'comments',
+    MY_COMMENTS: 'my-comments',
   },
 };

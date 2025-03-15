@@ -10,7 +10,7 @@ export class Comment extends AppBaseEntity {
   @Column({ type: 'text' })
   content: string;
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'bigint', name: 'parent_id', nullable: true })
   parentId: number;
 
   @Column({ type: 'bigint', name: 'blog_post_id', nullable: false })
@@ -24,6 +24,6 @@ export class Comment extends AppBaseEntity {
   authorId: number;
 
   @ManyToOne(() => User, (user) => user.comments)
-  @JoinColumn({ name: 'authorId' })
+  @JoinColumn({ name: 'author_id' })
   author: User;
 }
